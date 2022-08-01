@@ -33,20 +33,16 @@ public class Plant : MonoBehaviour
         StartCoroutine(Grow());
     }
 
-    public int? Harvest(int value)
+    public void Harvest()
     {
-        if (IsGrow) return null;
+        if (IsGrow) return;
+        Progress--;
 
-        if (Progress <= value)
+        if(Progress <= 0)
         {
             IsGrow = true;
             StartCoroutine(Grow());
         }
-        else
-        {
-            Progress -= value;
-        }
-        return value;
     }
 
     IEnumerator Grow()

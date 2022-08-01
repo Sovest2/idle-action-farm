@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1807985658156437009}
   - component: {fileID: 1323092696366716076}
+  - component: {fileID: 6996638712274816006}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Untagged
@@ -48,6 +49,19 @@ MonoBehaviour:
   progressText: {fileID: 5134736787393711629}
   ungrownPrefab: {fileID: 8479941370038906846, guid: 27002de394893e447bae539b01290416, type: 3}
   grownPrefab: {fileID: 346166876830528924, guid: 821ad2fba18470c42af5bed26d853907, type: 3}
+--- !u!65 &6996638712274816006
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323092696366716075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &5134736786767045628
 GameObject:
   m_ObjectHideFlags: 0
