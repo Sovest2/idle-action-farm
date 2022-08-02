@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91244a2f616c4d4394052acb5e7b832, type: 3}
+  m_Name: Wheat
+  m_EditorClassIdentifier: 
+  growTime: 10
+  ungrownPrefab: {fileID: 8479941370038906846, guid: 27002de394893e447bae539b01290416, type: 3}
+  grownPrefab: {fileID: 346166876830528924, guid: 821ad2fba18470c42af5bed26d853907, type: 3}
+  blockPrefab: {fileID: 1413187323855701071, guid: 5bb1ad5b65ffaa4499d70b22378712d3, type: 3}

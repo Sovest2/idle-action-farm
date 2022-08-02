@@ -11,7 +11,11 @@ public class PlayerStorage : MonoBehaviour
 
     [SerializeField] GameObject storage;
     [SerializeField] int capacity;
-    [SerializeField] int currentCount = 0;
+
+    
+
+    public Queue<PlantBlockData> BlockDataStorage { get; private set; } = new Queue<PlantBlockData>();
+    public int CurrentCount { get; private set; }
 
     public int Capacity
     {
@@ -20,21 +24,6 @@ public class PlayerStorage : MonoBehaviour
         {
             capacity = value;
             CapacityUpdated?.Invoke();
-        }
-    }
-    public int CurrentCount
-    {
-
-        get { return currentCount; }
-        private set 
-        {
-            currentCount = value;
-            storageRenderer.enabled = currentCount > 0;
-            currentScaleY = Mathf.Lerp(0, maxScaleY, (float)currentCount / capacity);
-            Vector3 originalScale = storage.transform.localScale;
-            storage.transform.localScale = new Vector3(originalScale.x, currentScaleY, originalScale.z);
-            CurrentCountUpdated?.Invoke();
-            
         }
     }
 
@@ -47,39 +36,52 @@ public class PlayerStorage : MonoBehaviour
     {
         storageRenderer = storage.GetComponent<MeshRenderer>();
         maxScaleY = storage.transform.localScale.y;
-        CurrentCount = currentCount;
         Capacity = capacity;
+        OnListChanged();
     }
 
-    void Update()
+    private void Update()
     {
-        
+        if(CurrentCount != BlockDataStorage.Count) 
+            OnListChanged();
+    }
+
+    void OnListChanged()
+    {
+        CurrentCount = BlockDataStorage.Count;
+        storageRenderer.enabled = CurrentCount > 0;
+        currentScaleY = Mathf.Lerp(0, maxScaleY, (float)CurrentCount / capacity);
+        Vector3 originalScale = storage.transform.localScale;
+        storage.transform.localScale = new Vector3(originalScale.x, currentScaleY, originalScale.z);
+        CurrentCountUpdated?.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
         {
-            case "Wheat":
-                if (currentCount >= capacity) break;
-                StartCoroutine(GrabWheat(other.transform));
+            case "PlantBlock":
+                if (BlockDataStorage.Count >= capacity) break;
+                StartCoroutine(GrabWheat(other.gameObject));
                 Destroy(other);
                 break;
         }
     }
 
-    IEnumerator GrabWheat(Transform wheat)
+    IEnumerator GrabWheat(GameObject wheat)
     {
-        CurrentCount++;
-        Vector3 startScale = wheat.localScale;
-        Vector3 startPosition = wheat.position;
-        Quaternion startRotation = wheat.rotation;
+        PlantBlockData blockData = wheat.GetComponent<PlantBlock>().Data;
+        BlockDataStorage.Enqueue(blockData);
+        Transform wheatTransform = wheat.transform; ;
+        Vector3 startScale = wheatTransform.localScale;
+        Vector3 startPosition = wheatTransform.position;
+        Quaternion startRotation = wheatTransform.rotation;
      
         for(float progress = 0f; progress <= 1f; progress+= Time.deltaTime)
         {
-            wheat.rotation = Quaternion.Lerp(startRotation, storage.transform.rotation, progress);
-            wheat.position = Vector3.Lerp(startPosition, storage.transform.position, progress);
-            wheat.localScale = Vector3.Lerp(startScale, Vector3.zero, progress);
+            wheatTransform.rotation = Quaternion.Lerp(startRotation, storage.transform.rotation, progress);
+            wheatTransform.position = Vector3.Lerp(startPosition, storage.transform.position, progress);
+            wheatTransform.localScale = Vector3.Lerp(startScale, Vector3.zero, progress);
 
             yield return null;
         }

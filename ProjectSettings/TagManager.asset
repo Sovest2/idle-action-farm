@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wheat
   - Sell
+  - PlantBlock
   layers:
   - Default
   - TransparentFX

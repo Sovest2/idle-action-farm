@@ -11,10 +11,7 @@ public class Plant : MonoBehaviour
     [SerializeField] int progressLimit = 10;
     [SerializeField] int progress = 0;
 
-
-    [SerializeField] GameObject ungrownPrefab;
-    [SerializeField] GameObject grownPrefab;
-    [SerializeField] GameObject blockPrefab;
+    [SerializeField] PlantData plantData;
 
     GameObject model;
 
@@ -35,7 +32,10 @@ public class Plant : MonoBehaviour
         private set
         {
             progress = value;
-            model.transform.localScale = Vector3.Lerp(ungrownPrefab.transform.localScale, grownPrefab.transform.localScale, (float) Progress / progressLimit);
+            model.transform.localScale = Vector3.Lerp(
+                plantData.ungrownPrefab.transform.localScale,
+                plantData.grownPrefab.transform.localScale,
+                (float) Progress / progressLimit);
         }
     }
 
@@ -55,7 +55,10 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
-        ChooseModel(Instantiate(Progress >= ProgressLimit ? grownPrefab : ungrownPrefab));
+        ChooseModel(Instantiate(
+            Progress >= ProgressLimit ?
+            plantData.grownPrefab :
+            plantData.ungrownPrefab));
         Progress = progress;
     }
 
@@ -75,7 +78,7 @@ public class Plant : MonoBehaviour
 
     IEnumerator SpawnBlock()
     {
-        Transform block = Instantiate(blockPrefab).transform;
+        Transform block = Instantiate(plantData.blockPrefab).transform;
         Collider blockCollider = block.GetComponent<Collider>();
         blockCollider.enabled = false;
 
@@ -102,12 +105,12 @@ public class Plant : MonoBehaviour
     {     
         if (!IsGrow) yield break;
 
-        ChooseModel(Instantiate(ungrownPrefab));
+        ChooseModel(Instantiate(plantData.ungrownPrefab));
 
         for (Progress = 0; Progress < progressLimit; Progress++)
             yield return new WaitForSeconds(1f);
 
-        ChooseModel(Instantiate(grownPrefab));
+        ChooseModel(Instantiate(plantData.grownPrefab));
         IsGrow = false;
     }
 

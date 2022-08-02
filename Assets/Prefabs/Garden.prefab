@@ -48,9 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progressLimit: 10
   progress: 0
-  ungrownPrefab: {fileID: 8479941370038906846, guid: 27002de394893e447bae539b01290416, type: 3}
-  grownPrefab: {fileID: 346166876830528924, guid: 821ad2fba18470c42af5bed26d853907, type: 3}
-  blockPrefab: {fileID: 1413187323855701071, guid: 5bb1ad5b65ffaa4499d70b22378712d3, type: 3}
+  plantData: {fileID: 11400000, guid: 6c1c869c74d86ea4fb6f925242f50100, type: 2}
   isGrow: 1
 --- !u!114 &4172338923824331527
 MonoBehaviour:

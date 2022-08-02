@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1413187323855701170}
   - component: {fileID: 1413187323855701169}
+  - component: {fileID: 217211416597201613}
   m_Layer: 0
   m_Name: Wheat Block
-  m_TagString: Wheat
+  m_TagString: PlantBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +46,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &217211416597201613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413187323855701071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235e7d6c5cb764b41a13823c8dc6ce5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 39514e7ef21781441995722369c1db4b, type: 2}
 --- !u!1 &2003581742951863491
 GameObject:
   m_ObjectHideFlags: 0
