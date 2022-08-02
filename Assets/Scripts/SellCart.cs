@@ -7,7 +7,7 @@ public class SellCart : MonoBehaviour
 {
     Coroutine unloadCoroutine;
 
-    public Action<int> BlockSold;
+    public static Action<int, Vector3> BlockSold;
 
     [SerializeField] Transform unloadTarget;
 
@@ -40,14 +40,14 @@ public class SellCart : MonoBehaviour
         while (playerStorage.BlockDataStorage.Count > 0)
         {
             var blockData = playerStorage.BlockDataStorage.Dequeue();
-            StartCoroutine(UnloadBlock(blockData.prefab, playerStorage.transform));
-            yield return new WaitForSeconds(0.01f);
+            StartCoroutine(UnloadBlock(blockData, playerStorage.transform));
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    IEnumerator UnloadBlock(GameObject prefab, Transform storage)
+    IEnumerator UnloadBlock(PlantBlockData blockData, Transform storage)
     {
-        Transform block = Instantiate(prefab, storage.position, storage.rotation, null).transform;
+        Transform block = Instantiate(blockData.prefab, storage.position, storage.rotation, null).transform;
         block.GetComponent<Collider>().enabled = false;
         for (float i = 0f; i < 1f; i += Time.deltaTime)
         {
@@ -56,5 +56,6 @@ public class SellCart : MonoBehaviour
             yield return null;
         }
         Destroy(block.gameObject);
+        BlockSold?.Invoke(blockData.cost, unloadTarget.position);
     }
 }

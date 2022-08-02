@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
+    public Action CoinsValueChanged;
     public static GameManager Instance { get; private set; }
 
     [SerializeField] int coins;
@@ -11,22 +13,25 @@ public class GameManager : MonoBehaviour
     public int Coins
     {
         get { return coins; }
-        set { coins = value; }
+        set 
+        { 
+            coins = value;
+            CoinsValueChanged?.Invoke();
+        }
     }
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        Coins = coins;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+
+
 }
