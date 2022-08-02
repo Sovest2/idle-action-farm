@@ -1,25 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerStorage : MonoBehaviour
 {
+
+    public Action CapacityUpdated;
+    public Action CurrentCountUpdated;
 
     [SerializeField] GameObject storage;
     [SerializeField] int capacity;
     int currentCount = 0;
 
+    public int Capacity
+    {
+        get { return capacity; }
+        private set 
+        {
+            capacity = value;
+            CapacityUpdated?.Invoke();
+        }
+    }
     public int CurrentCount
     {
 
         get { return currentCount; }
-        set 
+        private set 
         {
             currentCount = value;
             storageRenderer.enabled = currentCount > 0;
             currentScaleY = Mathf.Lerp(0, maxScaleY, (float)currentCount / capacity);
             Vector3 originalScale = storage.transform.localScale;
             storage.transform.localScale = new Vector3(originalScale.x, currentScaleY, originalScale.z);
+            CurrentCountUpdated?.Invoke();
+            
         }
     }
 
@@ -33,7 +48,6 @@ public class PlayerStorage : MonoBehaviour
         storageRenderer = storage.GetComponent<MeshRenderer>();
         maxScaleY = storage.transform.localScale.y;
         CurrentCount = currentCount;
-        
     }
 
     void Update()

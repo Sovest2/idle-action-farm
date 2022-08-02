@@ -38,19 +38,38 @@ public class Plant : MonoBehaviour
     {
         if (IsGrow) return;
         Progress--;
-        float offsetX = Random.Range(-2f, 2f);
-        float offsetZ = Random.Range(-2f, 2f);
-
-        Vector3 offset = new Vector3(offsetX, 0, offsetZ);
-
-        float rotationY = Random.Range(0f, 180f);
-        Instantiate(blockPrefab, transform.position + offset, Quaternion.Euler(0, rotationY, 0));
+        StartCoroutine(SpawnBlock());
 
         if (Progress <= 0)
         {
             IsGrow = true;
             StartCoroutine(Grow());
         }
+    }
+
+    IEnumerator SpawnBlock()
+    {
+        Transform block = Instantiate(blockPrefab).transform;
+        Collider blockCollider = block.GetComponent<Collider>();
+        blockCollider.enabled = false;
+
+        
+
+        float rotationY = Random.Range(0f, 360f);
+        Quaternion targetRotation = Quaternion.Euler(0, rotationY, 0);
+
+        float offset = Random.Range(1, 2f);
+        Vector3 targetPosition = transform.position + (targetRotation * transform.forward * offset);
+
+        for (float i = 0f; i <= 1; i+= Time.deltaTime)
+        {
+            block.position = Vector3.Lerp(transform.position, targetPosition, i);
+            block.rotation = Quaternion.Lerp(transform.rotation, targetRotation, i);
+            yield return null;
+        }
+
+        blockCollider.enabled = true;
+
     }
 
     IEnumerator Grow()
