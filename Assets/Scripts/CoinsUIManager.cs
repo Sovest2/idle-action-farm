@@ -14,6 +14,9 @@ public class CoinsUIManager : MonoBehaviour
     Camera mainCamera;
     GameManager gm;
 
+    float currentAmount;
+    int targetAmount;
+
     int isWiggle = Animator.StringToHash("Wiggle");
 
     void Start()
@@ -31,8 +34,18 @@ public class CoinsUIManager : MonoBehaviour
         gm.CoinsValueChanged -= OnCoinsValueChanged;
     }
 
+    private void Update()
+    {
+        if ((int) currentAmount != targetAmount)
+        {
+            currentAmount += (targetAmount - currentAmount) * 0.1f;
+            coinsText.text = $"{currentAmount: 000}";
+        }
+    }
+
     void OnCoinsValueChanged()
     {
+        targetAmount = gm.Coins;
         coinsText.text = $"{gm.Coins}";
     }
 
