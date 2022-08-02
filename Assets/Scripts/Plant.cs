@@ -10,6 +10,7 @@ public class Plant : MonoBehaviour
 
     [SerializeField] GameObject ungrownPrefab;
     [SerializeField] GameObject grownPrefab;
+    [SerializeField] GameObject blockPrefab;
 
     GameObject model;
 
@@ -37,8 +38,15 @@ public class Plant : MonoBehaviour
     {
         if (IsGrow) return;
         Progress--;
+        float offsetX = Random.Range(-2f, 2f);
+        float offsetZ = Random.Range(-2f, 2f);
 
-        if(Progress <= 0)
+        Vector3 offset = new Vector3(offsetX, 0, offsetZ);
+
+        float rotationY = Random.Range(0f, 180f);
+        Instantiate(blockPrefab, transform.position + offset, Quaternion.Euler(0, rotationY, 0));
+
+        if (Progress <= 0)
         {
             IsGrow = true;
             StartCoroutine(Grow());

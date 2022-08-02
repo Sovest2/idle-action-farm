@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scythe : MonoBehaviour
 {
     Collider collider;
+    Coroutine deactivateCoroutine;
 
     void Start()
     {
@@ -20,8 +21,9 @@ public class Scythe : MonoBehaviour
 
     void ActivateTrigger()
     {
+        if(deactivateCoroutine!= null) StopCoroutine(deactivateCoroutine);
         collider.enabled = true;
-        StartCoroutine(DeactivateTrigger());
+        deactivateCoroutine = StartCoroutine(DeactivateTrigger());
     }
 
     void OnTriggerEnter(Collider other)
