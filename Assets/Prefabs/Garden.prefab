@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1807985658156437009}
   - component: {fileID: 1323092696366716076}
+  - component: {fileID: 4172338923824331527}
   - component: {fileID: 6996638712274816006}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1807985658156437009
 Transform:
@@ -46,10 +47,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressLimit: 10
-  progressText: {fileID: 5134736787393711629}
+  progress: 0
   ungrownPrefab: {fileID: 8479941370038906846, guid: 27002de394893e447bae539b01290416, type: 3}
   grownPrefab: {fileID: 346166876830528924, guid: 821ad2fba18470c42af5bed26d853907, type: 3}
   blockPrefab: {fileID: 1413187323855701071, guid: 5bb1ad5b65ffaa4499d70b22378712d3, type: 3}
+  isGrow: 1
+--- !u!114 &4172338923824331527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323092696366716075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74e7b62434a4e434ca2201cc904cc053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressText: {fileID: 5134736787393711629}
+  textShowTime: 1.5
 --- !u!65 &6996638712274816006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +96,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &5134736786767045629
 RectTransform:
@@ -179,7 +195,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &5134736787393711628
 RectTransform:
@@ -311,7 +327,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5134736787540590552
 Transform:
@@ -346,7 +362,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5134736787866175430
 Transform:
