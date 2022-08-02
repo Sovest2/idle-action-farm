@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class Scythe : MonoBehaviour
 {
-    Collider collider;
-    Coroutine deactivateCoroutine;
+    Collider scytheCollider;
+    Coroutine triggerCoroutine;
+
+    [SerializeField] float activateDelay = 0.2f;
+    [SerializeField] float deactivateDelay = 0.5f;
 
     void Start()
     {
-        collider = GetComponent<Collider>();
-        collider.enabled = false;
-        CutButton.CutPressed += ActivateTrigger;
+        scytheCollider = GetComponent<Collider>();
+        scytheCollider.enabled = false;
+        CutButton.CutPressed += Cut;
     }
 
     private void OnDestroy()
     {
-        CutButton.CutPressed -= ActivateTrigger;
+        CutButton.CutPressed -= Cut;
     }
 
-    void ActivateTrigger()
+    void Cut()
     {
-        if(deactivateCoroutine!= null) StopCoroutine(deactivateCoroutine);
-        collider.enabled = true;
-        deactivateCoroutine = StartCoroutine(DeactivateTrigger());
+        if(triggerCoroutine!= null) StopCoroutine(triggerCoroutine);
+        triggerCoroutine = StartCoroutine(EffectTrigger());
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,9 +36,12 @@ public class Scythe : MonoBehaviour
         }
     }
 
-    IEnumerator DeactivateTrigger()
+    IEnumerator EffectTrigger()
     {
-        yield return new WaitForSeconds(0.8f);
-        collider.enabled = false;
+        scytheCollider.enabled = false;
+        yield return new WaitForSeconds(activateDelay);
+        scytheCollider.enabled = true;
+        yield return new WaitForSeconds(deactivateDelay);
+        scytheCollider.enabled = false;
     }
 }
