@@ -16,6 +16,7 @@ public class Plant : MonoBehaviour
     GameObject model;
 
     [SerializeField] bool isGrow = true;
+    [SerializeField] GameObject harvestParticlesPrefab;
 
     public bool IsGrow 
     {
@@ -65,9 +66,13 @@ public class Plant : MonoBehaviour
     public void Harvest()
     {
         if (IsGrow) return;
+
         Progress--;
         Harvested?.Invoke();
         StartCoroutine(SpawnBlock());
+
+        var particles = Instantiate(harvestParticlesPrefab, transform.position, harvestParticlesPrefab.transform.rotation);
+        Destroy(particles,2f);
 
         if (Progress <= 0)
         {

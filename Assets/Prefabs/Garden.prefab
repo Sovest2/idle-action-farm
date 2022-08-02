@@ -50,6 +50,7 @@ MonoBehaviour:
   progress: 0
   plantData: {fileID: 11400000, guid: 6c1c869c74d86ea4fb6f925242f50100, type: 2}
   isGrow: 1
+  harvestParticlesPrefab: {fileID: 4788874200326295331, guid: e1963dfa41d51c444bada393856ec3d5, type: 3}
 --- !u!114 &4172338923824331527
 MonoBehaviour:
   m_ObjectHideFlags: 0
