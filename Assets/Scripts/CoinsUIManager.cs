@@ -9,14 +9,18 @@ public class CoinsUIManager : MonoBehaviour
 
     [SerializeField] RectTransform coinsImage;
     [SerializeField] GameObject coinPrefab;
-    Camera mainCamera;
 
+    Animator coinsIconAnimator;
+    Camera mainCamera;
     GameManager gm;
+
+    int isWiggle = Animator.StringToHash("Wiggle");
 
     void Start()
     {
         gm = GameManager.Instance;
         mainCamera = Camera.main;
+        coinsIconAnimator = coinsImage.GetComponent<Animator>();
         SellCart.BlockSold += OnSellBlock;
         gm.CoinsValueChanged += OnCoinsValueChanged;
     }
@@ -51,7 +55,10 @@ public class CoinsUIManager : MonoBehaviour
         }
         Destroy(coinTransform.gameObject);
 
+        coinsIconAnimator.SetTrigger(isWiggle);
+        yield return new WaitForSeconds(0.5f);
         gm.Coins += value;
+        coinsIconAnimator.SetTrigger(isWiggle);
     }
 
 }

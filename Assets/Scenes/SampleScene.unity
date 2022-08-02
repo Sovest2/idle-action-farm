@@ -6522,6 +6522,7 @@ GameObject:
   - component: {fileID: 5778231021560937570}
   - component: {fileID: 2616228216526218023}
   - component: {fileID: 2402755990033790155}
+  - component: {fileID: 7121996987445443289}
   m_Layer: 5
   m_Name: Coin Image
   m_TagString: Untagged
@@ -6529,3 +6530,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &7121996987445443289
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121996987445443288}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a09fbde49fed62349a0ce1c4a4812728, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
