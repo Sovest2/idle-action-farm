@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] float speed;
-    [SerializeField] LayerMask groundMask;
 
     FloatingJoystick joystick;
     CharacterController characterController;
@@ -29,13 +28,5 @@ public class PlayerMovement : MonoBehaviour
             characterController.Move(movementVector * speed * Time.deltaTime);
         }
         
-    }
-
-    private void FixedUpdate()
-    {
-        if(Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 2f, groundMask))
-        {
-            transform.position = hit.point + Vector3.up * characterController.bounds.extents.y;
-        }
     }
 }
