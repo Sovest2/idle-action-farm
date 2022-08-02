@@ -78,7 +78,7 @@ public class Plant : MonoBehaviour
 
     IEnumerator SpawnBlock()
     {
-        Transform block = Instantiate(plantData.blockPrefab).transform;
+        Transform block = Instantiate(plantData.data.prefab).transform;
         Collider blockCollider = block.GetComponent<Collider>();
         blockCollider.enabled = false;
 

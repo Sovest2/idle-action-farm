@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlantBlock : MonoBehaviour
 {
     [SerializeField] PlantBlockData data;
+
     public PlantBlockData Data
     {
         get { return data; }

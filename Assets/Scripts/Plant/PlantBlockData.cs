@@ -7,4 +7,5 @@ public class PlantBlockData : ScriptableObject
 {
     public string title;
     public int cost;
+    public GameObject prefab;
 }

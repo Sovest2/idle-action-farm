@@ -10,5 +10,6 @@ public class PlantData : ScriptableObject
 
     public GameObject ungrownPrefab;
     public GameObject grownPrefab;
-    public GameObject blockPrefab;
+
+    public PlantBlockData data;
 }

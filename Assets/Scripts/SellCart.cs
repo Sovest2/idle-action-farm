@@ -9,6 +9,8 @@ public class SellCart : MonoBehaviour
 
     public Action<int> BlockSold;
 
+    [SerializeField] Transform unloadTarget;
+
     
 
     private void OnTriggerEnter(Collider other)
@@ -38,8 +40,21 @@ public class SellCart : MonoBehaviour
         while (playerStorage.BlockDataStorage.Count > 0)
         {
             var blockData = playerStorage.BlockDataStorage.Dequeue();
-            BlockSold?.Invoke(blockData.cost);
-            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(UnloadBlock(blockData.prefab, playerStorage.transform));
+            yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    IEnumerator UnloadBlock(GameObject prefab, Transform storage)
+    {
+        Transform block = Instantiate(prefab, storage.position, storage.rotation, null).transform;
+        block.GetComponent<Collider>().enabled = false;
+        for (float i = 0f; i < 1f; i += Time.deltaTime)
+        {
+            block.position = Vector3.Lerp(storage.position, unloadTarget.position, i);
+            block.rotation = Quaternion.Lerp(storage.rotation, unloadTarget.rotation, i);
+            yield return null;
+        }
+        Destroy(block.gameObject);
     }
 }
