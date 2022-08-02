@@ -11,7 +11,7 @@ public class PlayerStorage : MonoBehaviour
 
     [SerializeField] GameObject storage;
     [SerializeField] int capacity;
-    int currentCount = 0;
+    [SerializeField] int currentCount = 0;
 
     public int Capacity
     {
@@ -48,6 +48,7 @@ public class PlayerStorage : MonoBehaviour
         storageRenderer = storage.GetComponent<MeshRenderer>();
         maxScaleY = storage.transform.localScale.y;
         CurrentCount = currentCount;
+        Capacity = capacity;
     }
 
     void Update()

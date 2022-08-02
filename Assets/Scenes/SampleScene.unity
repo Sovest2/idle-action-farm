@@ -1215,6 +1215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storage: {fileID: 2078568562}
   capacity: 60
+  currentCount: 0
 --- !u!1 &1198681324
 GameObject:
   m_ObjectHideFlags: 0
