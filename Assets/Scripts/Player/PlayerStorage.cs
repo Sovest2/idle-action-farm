@@ -9,14 +9,31 @@ public class PlayerStorage : MonoBehaviour
     [SerializeField] int capacity;
     int currentCount = 0;
 
+    public int CurrentCount
+    {
+
+        get { return currentCount; }
+        set 
+        {
+            currentCount = value;
+            storageRenderer.enabled = currentCount > 0;
+            currentScaleY = Mathf.Lerp(0, maxScaleY, (float)currentCount / capacity);
+            Vector3 originalScale = storage.transform.localScale;
+            storage.transform.localScale = new Vector3(originalScale.x, currentScaleY, originalScale.z);
+        }
+    }
+
     float maxScaleY = 0;
     float currentScaleY = 0;
 
+    MeshRenderer storageRenderer;
+
     void Start()
     {
+        storageRenderer = storage.GetComponent<MeshRenderer>();
         maxScaleY = storage.transform.localScale.y;
-        Vector3 originalScale = storage.transform.localScale;
-        storage.transform.localScale = new Vector3(originalScale.x, currentScaleY, originalScale.z);
+        CurrentCount = currentCount;
+        
     }
 
     void Update()
@@ -38,7 +55,7 @@ public class PlayerStorage : MonoBehaviour
 
     IEnumerator GrabWheat(Transform wheat)
     {
-        currentCount++;
+        CurrentCount++;
         Vector3 startScale = wheat.localScale;
         Vector3 startPosition = wheat.position;
         Quaternion startRotation = wheat.rotation;
@@ -52,9 +69,6 @@ public class PlayerStorage : MonoBehaviour
             yield return null;
         }
 
-        currentScaleY = Mathf.Lerp(0, maxScaleY, (float) currentCount / capacity);
-        Vector3 originalScale = storage.transform.localScale;
-        storage.transform.localScale = new Vector3(originalScale.x, currentScaleY, originalScale.z);
         Destroy(wheat.gameObject);
     }
 
