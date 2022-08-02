@@ -56,6 +56,8 @@ public class SellCart : MonoBehaviour
             yield return null;
         }
         Destroy(block.gameObject);
+
+        yield return new WaitForSeconds(1f);
         BlockSold?.Invoke(blockData.cost, unloadTarget.position);
     }
 }

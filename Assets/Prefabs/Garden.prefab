@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e7b62434a4e434ca2201cc904cc053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 0
+  canvas: {fileID: 5134736786767045628}
   progressText: {fileID: 5134736787393711629}
   textShowTime: 1.5
 --- !u!65 &6996638712274816006

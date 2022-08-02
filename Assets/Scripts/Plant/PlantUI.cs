@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlantUI : MonoBehaviour
 {
+    [SerializeField] bool isEnabled;
+    [SerializeField] GameObject canvas;
     [SerializeField] TMP_Text progressText;
     [SerializeField] float textShowTime = 1f;
 
@@ -15,13 +17,16 @@ public class PlantUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canvas.SetActive(false);
+        if (!isEnabled) return;
         plant = GetComponent<Plant>();
         plant.Harvested += OnHarvested;
-        progressText.gameObject.SetActive(false);
+        
     }
 
     private void OnDestroy()
     {
+        if (!isEnabled) return;
         plant.Harvested -= OnHarvested;
     }
 
@@ -35,8 +40,8 @@ public class PlantUI : MonoBehaviour
 
     IEnumerator ShowText()
     {
-        progressText.gameObject.SetActive(true);
+        canvas.SetActive(true);
         yield return new WaitForSeconds(textShowTime);
-        progressText.gameObject.SetActive(false);
+        canvas.SetActive(false);
     }
 }
