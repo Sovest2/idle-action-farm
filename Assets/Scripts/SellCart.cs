@@ -47,15 +47,16 @@ public class SellCart : MonoBehaviour
 
     IEnumerator UnloadBlock(PlantBlockData blockData, Transform storage)
     {
-        Transform block = Instantiate(blockData.prefab, storage.position, storage.rotation, null).transform;
-        block.GetComponent<Collider>().enabled = false;
+        GameObject block = PoolManager.Instance.SpawnObject(blockData.prefab);
+        Transform blockTransform = block.transform;
+        blockTransform.GetComponent<Collider>().enabled = false;
         for (float i = 0f; i < 1f; i += Time.deltaTime)
         {
-            block.position = Vector3.Lerp(storage.position, unloadTarget.position, i);
-            block.rotation = Quaternion.Lerp(storage.rotation, unloadTarget.rotation, i);
+            blockTransform.position = Vector3.Lerp(storage.position, unloadTarget.position, i);
+            blockTransform.rotation = Quaternion.Lerp(storage.rotation, unloadTarget.rotation, i);
             yield return null;
         }
-        Destroy(block.gameObject);
+        PoolManager.Instance.DespawnObject(block);
 
         yield return new WaitForSeconds(1f);
         BlockSold?.Invoke(blockData.cost, unloadTarget.position);

@@ -83,8 +83,9 @@ public class Plant : MonoBehaviour
 
     IEnumerator SpawnBlock()
     {
-        Transform block = Instantiate(plantData.data.prefab).transform;
-        Collider blockCollider = block.GetComponent<Collider>();
+        GameObject block = PoolManager.Instance.SpawnObject(plantData.data.prefab);
+        Transform blockTransform = block.transform;
+        Collider blockCollider = blockTransform.GetComponent<Collider>();
         blockCollider.enabled = false;
 
         
@@ -97,8 +98,8 @@ public class Plant : MonoBehaviour
 
         for (float i = 0f; i <= 1; i+= Time.deltaTime)
         {
-            block.position = Vector3.Lerp(transform.position, targetPosition, i);
-            block.rotation = Quaternion.Lerp(transform.rotation, targetRotation, i);
+            blockTransform.position = Vector3.Lerp(transform.position, targetPosition, i);
+            blockTransform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, i);
             yield return null;
         }
 

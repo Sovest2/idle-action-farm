@@ -56,23 +56,17 @@ public class PlayerStorage : MonoBehaviour
         CurrentCountUpdated?.Invoke();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void PickUp(PlantBlock block)
     {
-        switch (other.tag)
-        {
-            case "PlantBlock":
-                if (BlockDataStorage.Count >= capacity) break;
-                StartCoroutine(GrabWheat(other.gameObject));
-                Destroy(other);
-                break;
-        }
+        if (BlockDataStorage.Count >= Capacity) return;
+        block.BlockCollider.enabled = false;
+        StartCoroutine(GrabBlock(block));
     }
 
-    IEnumerator GrabWheat(GameObject wheat)
+    IEnumerator GrabBlock(PlantBlock block)
     {
-        PlantBlockData blockData = wheat.GetComponent<PlantBlock>().Data;
-        BlockDataStorage.Enqueue(blockData);
-        Transform wheatTransform = wheat.transform; ;
+        BlockDataStorage.Enqueue(block.Data);
+        Transform wheatTransform = block.transform; ;
         Vector3 startScale = wheatTransform.localScale;
         Vector3 startPosition = wheatTransform.position;
         Quaternion startRotation = wheatTransform.rotation;
@@ -86,7 +80,7 @@ public class PlayerStorage : MonoBehaviour
             yield return null;
         }
 
-        Destroy(wheat.gameObject);
+        PoolManager.Instance.DespawnObject(block.gameObject);
     }
 
      

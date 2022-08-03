@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int coins;
 
+    
+
     public int Coins
     {
         get { return coins; }
