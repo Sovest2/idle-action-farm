@@ -16,7 +16,6 @@ public class Plant : MonoBehaviour
     GameObject model;
 
     [SerializeField] bool isGrow = true;
-    [SerializeField] GameObject harvestParticlesPrefab;
 
     public bool IsGrow 
     {
@@ -71,14 +70,22 @@ public class Plant : MonoBehaviour
         Harvested?.Invoke();
         StartCoroutine(SpawnBlock());
 
-        var particles = Instantiate(harvestParticlesPrefab, transform.position, harvestParticlesPrefab.transform.rotation);
-        Destroy(particles,2f);
+
+        StartCoroutine(SpawnParticles());
 
         if (Progress <= 0)
         {
             IsGrow = true;
             StartCoroutine(Grow());
         }
+    }
+
+    IEnumerator SpawnParticles()
+    {
+        GameObject particles = PoolManager.Instance.SpawnObject(plantData.harvestParticles);
+        particles.transform.position = transform.position;
+        yield return new WaitForSeconds(2f);
+        PoolManager.Instance.DespawnObject(particles);
     }
 
     IEnumerator SpawnBlock()

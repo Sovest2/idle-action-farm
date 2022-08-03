@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Wheat
   cost: 15
-  prefabNameFromPool: Wheat Block
+  prefab: {fileID: 1413187323855701071, guid: 5bb1ad5b65ffaa4499d70b22378712d3, type: 3}

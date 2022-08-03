@@ -40,7 +40,7 @@ public class PoolManager : MonoBehaviour
     public void DespawnObject(GameObject target)
     {
         poolsDictionary[target.name].Enqueue(target);
-        target.transform.parent = deactivatedObjectsParent;
+        target.transform.SetParent(deactivatedObjectsParent,false);
         target.SetActive(false);
     }
 }

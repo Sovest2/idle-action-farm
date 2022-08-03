@@ -13,6 +13,7 @@ public class CoinsUIManager : MonoBehaviour
     Animator coinsIconAnimator;
     Camera mainCamera;
     GameManager gm;
+    PoolManager pm;
 
     float currentAmount;
     int targetAmount;
@@ -22,6 +23,7 @@ public class CoinsUIManager : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
+        pm = PoolManager.Instance;
         mainCamera = Camera.main;
         coinsIconAnimator = coinsImage.GetComponent<Animator>();
         SellCart.BlockSold += OnSellBlock;
@@ -57,7 +59,8 @@ public class CoinsUIManager : MonoBehaviour
     IEnumerator GainCoin(int value, Vector3 position)
     {
         yield return null;
-        RectTransform coinTransform = Instantiate(coinPrefab).GetComponent<RectTransform>();
+        GameObject coin = pm.SpawnObject(coinPrefab);
+        RectTransform coinTransform = coin.GetComponent<RectTransform>();
         coinTransform.SetParent((RectTransform)transform, false);
         
         Vector2 startPosition = mainCamera.WorldToScreenPoint(position);
@@ -66,7 +69,7 @@ public class CoinsUIManager : MonoBehaviour
             coinTransform.position = Vector2.Lerp(startPosition, coinsImage.position, i);
             yield return null;
         }
-        Destroy(coinTransform.gameObject);
+        pm.DespawnObject(coin);
 
         coinsIconAnimator.SetTrigger(isWiggle);
         yield return new WaitForSeconds(0.5f);

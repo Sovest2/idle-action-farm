@@ -15,4 +15,5 @@ MonoBehaviour:
   growTime: 10
   ungrownPrefab: {fileID: 8479941370038906846, guid: 27002de394893e447bae539b01290416, type: 3}
   grownPrefab: {fileID: 346166876830528924, guid: 821ad2fba18470c42af5bed26d853907, type: 3}
+  harvestParticles: {fileID: 4788874200326295331, guid: e1963dfa41d51c444bada393856ec3d5, type: 3}
   data: {fileID: 11400000, guid: 39514e7ef21781441995722369c1db4b, type: 2}
